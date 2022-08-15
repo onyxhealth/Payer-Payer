@@ -1,0 +1,36 @@
+{
+  "resourceType": "Bundle",
+  "id": "example-mtls-endpoint-bundle",
+  "meta": {
+    "lastUpdated": "2022-07-04T15:00:00.000Z",
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/mtls-bundle"
+    ]
+  },
+  "type": "collection",
+  "timestamp": "2022-07-04T15:00:00.000Z",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Organization",
+        "id": "DiamondOnyxHealth1",
+        "text": {
+          "status": "generated",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Organization</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Organization \"DiamondOnyxHealth1\" </p></div></div>"
+        }
+      }
+    }
+  ],
+  "signature": {
+    "type": [
+      {
+        "code": "1.2.840.10065.1.12.1.1"
+      }
+    ],
+    "when": "2022-07-04T15:00:00.000Z",
+    "who": {
+      "reference": "Organization/DiamondOnyxHealth1"
+    },
+    "sigFormat": "application/x-x509-ca-cert"
+  }
+}
