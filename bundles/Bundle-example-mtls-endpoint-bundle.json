@@ -40,11 +40,6 @@
           }
         ],
         "name": "DiamondOnyxHealth",
-        "endpoint": [
-          {
-            "reference": "Endpoint?identifier=diamond-mtls-endpoint2"
-          }
-        ]
       }
     },
     {
@@ -202,7 +197,7 @@
     ],
     "when": "2022-07-04T15:00:00.000Z",
     "who": {
-      "reference": "Organization?identifier=diamondonyxhealth2"
+      "reference": "Organization/diamondonyxhealth2"
     },
     "sigFormat": "application/x-x509-ca-cert"
   }
