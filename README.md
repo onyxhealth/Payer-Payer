@@ -18,11 +18,16 @@ wants to perform Payer-to-Payer exchange with another Payer would submit a bundl
 Each bundle would contain an Organization and Endpoint record that details the necessary
 mTLS connectivity information with supporting Public Certificate. 
 
-Payers clone this repository and use the content of the *bundles* folder to setup mTLS connections
+Payers clone this repository and use the content of the */bundles* folder to setup mTLS connections
 with other Payers.
 
 The automated work flow for Payer-to-Payer Exchange is documented in the PDex IG on the
 [Payer-to-Payer Exchange](http://hl7.org/fhir/us/davinci-pdex/2022May/PayerToPayerExchange.html) page.
 
+The mTLS bundles are located in the /bundles directory of this repository.
+
+A dockerized HAPI instance can be run by following the instructions in the /hapi-docker directory.
+
+A set of Python scripts to load the bundles to the dockerized hapi server can be found in the /bundle-import directory. 
 
 

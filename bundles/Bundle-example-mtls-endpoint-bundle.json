@@ -170,7 +170,7 @@
         },
         "name": "Payer-Payer Exchange",
         "managingOrganization": {
-          "reference": "Organization?identifier=diamondonyxhealth2"
+          "reference": "Organization/diamondonyxhealth2"
         },
         "payloadType": [
           {
