@@ -39,7 +39,12 @@
             ]
           }
         ],
-        "name": "DiamondOnyxHealth"
+        "name": "DiamondOnyxHealth",
+        "endpoint": [
+          {
+            "reference": "Endpoint/diamond-mtls-endpoint2"
+          }
+        ]
       }
     },
     {
