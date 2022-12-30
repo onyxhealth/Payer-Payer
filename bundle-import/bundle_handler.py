@@ -12,7 +12,7 @@ from fhir_calls import call_fhir, is_next
 from icecream import ic
 from template_list import TEMPLATE_LIST
 
-ic.disable()
+# ic.disable()
 
 
 def bundle_seq_load(dir_list=[], path="./"+BUNDLE_FOLDER):
@@ -27,9 +27,17 @@ def bundle_seq_load(dir_list=[], path="./"+BUNDLE_FOLDER):
             bundle = bundle_get_file(path + "/" + f)
             org = org_from_bundle(bundle)
             org_fhir_id = org['resource']['id']
-            ic(org_fhir_id)
+            endpoint_ref = org['resource']['endpoint'][0]['reference']
+            # look for endpoint.reference and save it
+            ic(org['resource']['endpoint'])
+            ic("We are working with these ids:", org_fhir_id, endpoint_ref)
+            # temporarily remove endpoint reference
+            ic("org before removing endpoint",org)
+            del org['resource']['endpoint']
+            ic("org after removing endpoint", org)
             if org:
                 status, resp = add_to_fhir(org)
+                ic("committed org to FHIR", status, resp)
                 if status in [200, 201]:
                     ic("finding org_fhir_id", resp)
                     org_fhir_id = get_resource_fhir_id(resp, rt="Organization",)
@@ -45,6 +53,14 @@ def bundle_seq_load(dir_list=[], path="./"+BUNDLE_FOLDER):
                 if status in [200, 201]:
                     ic("finding endpoint_fhir_id", resp)
                     endpoint_fhir_id = get_resource_fhir_id(resp, rt="Endpoint")
+                    # Use Endpoint ID to update Organization with PUT
+                    ic("We have the Endpoint FHIR Id", endpoint_fhir_id)
+                    # Re-write Organization with Endpoint reference
+                    if add_ep_to_org(org_fhir_id, endpoint_fhir_id):
+                        print(f"Endpoint (Endpoint/{endpoint_fhir_id}) updated in Organization/{org_fhir_id}")
+                    #   GET Organization
+                    #   Add endpoint.reference
+                    #   PUT Organization
                     processed_bundle["Endpoint"].append(endpoint_fhir_id)
     return processed_bundle
 
@@ -53,7 +69,7 @@ def add_to_fhir(entry={}):
     # Add to FHIR via POST
     # or update via PUT
     i = entry['resource']
-    ic(i)
+    ic(i['id'])
     query = FHIR_BASE_URI + "/" + i["resourceType"] + "/?identifier=" + i['identifier'][0]['value'] + "&_total=accurate"
     status, response = resource_get(data={"resourceType": i["resourceType"]},
                                     calltype="GET",
@@ -74,7 +90,7 @@ def add_to_fhir(entry={}):
                 data_file = i["entry"]['resource']
                 data_file['id'] = response['resource']['entry'][0]['id']
                 status, response = call_fhir(data_file=data_file, calltype="PUT")
-                ic("result from PUT\n", status, response)
+                ic("result from PUT\n", status, response.keys())
     elif "entry" not in response.keys():
         # No entry so we should post a record
         ic(i["resourceType"])
@@ -84,7 +100,7 @@ def add_to_fhir(entry={}):
             del data_file["id"]
         ic("Before attempting POST\n", data_file)
         status, response = call_fhir(data_file=data_file, calltype="POST")
-        ic("result of POST\n", status, response)
+        ic("result of POST\n", status)
 
     return status, response
 
@@ -133,7 +149,8 @@ def resource_get(data, calltype="GET", query=""):
                                  calltype="GET",
                                  query=query,
                                  get_token=TOKEN_REQUIRED)
-    ic(status, response)
+    # ic("resource_get", status, response['entry'][0]['fullUrl'])
+    ic("resource_get", status, response)
     return status, response
 
 
@@ -152,7 +169,7 @@ def endpoint_from_bundle(bundle):
 def resource_from_source(bundle, resourcetype=""):
     if "entry" in bundle.keys():
         for e in bundle['entry']:
-            ic(resourcetype, e)
+            ic(resourcetype, e['fullUrl'])
             if e['resource']['resourceType'] == resourcetype:
                 return e
     return
@@ -172,16 +189,11 @@ def get_resource_fhir_id(resp, rt="Organization"):
 
 def update_org_id(endpoint, org_fhir_id):
     # replace imported org id with loaded org fhir id
-    ic("pre-update", endpoint)
+    ic("pre-update", endpoint['fullUrl'])
     #if "managingOrganization" in endpoint['resource'].keys():
     endpoint['resource']['managingOrganization']['reference'] = "Organization/" + org_fhir_id
 
     return endpoint
-
-def replace_org_in_endpoint(fhir_id="", record={}):
-    # replace organization FHIR ID in endpoint record.
-
-    return record
 
 
 def list_get():
@@ -290,3 +302,22 @@ def kill_records(resource, batch_to_kill=[]):
         ic(status,resp)
         kill_result.append(status)
     return kill_result
+
+
+def add_ep_to_org(org_id, ep_id):
+    # Get Org, Add Endpoint Ref. Put org
+    data = {"resourceType": "Organization",
+            "id": org_id}
+    status, resp = call_fhir(data_file=data, calltype="GET", get_token=TOKEN_REQUIRED)
+    ic("We got the Org record -  check for entry", status, resp)
+    if "entry" in resp.keys():
+        org = resp['entry'][0]['resource']
+    else:
+        org = resp
+    org['endpoint'] = []
+    org['endpoint'].append({'reference': "Endpoint/" + ep_id})
+    status, resp = call_fhir(data_file=org, calltype="PUT", get_token=TOKEN_REQUIRED)
+    ic("We PUT an updated Org record. Is there an endpoint reference?", status, resp)
+    if status in [200, 201]:
+        return True
+    return
