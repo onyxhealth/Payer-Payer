@@ -49,3 +49,8 @@ optional arguments:
                         Additional Search parameters instead of, or in addition to Payer Name.
 
 
+An information file about the public certificate will be written to a file that uses the same name and extension as the cert_file_target parameter with the addition of ".txt"
+
+e.g.  ./tmp/public_cert.pem will have an information file of
+./tmp/public_cert.pem.txt
+
