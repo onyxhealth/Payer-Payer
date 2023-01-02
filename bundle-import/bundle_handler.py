@@ -247,6 +247,11 @@ def check_field(target, field=""):
     return False
 
 
+def get_field(target={}, field=""):
+    if field in target.keys():
+        return target[field]
+
+
 def remove_dead_records(bundle_fhir_values={"Organization":[], "Endpoint":[]}):
     # check records in HAPI match bundle
     kill_result = {"Endpoint": [],

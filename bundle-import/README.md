@@ -13,7 +13,7 @@ These instructions are based on installation in MacOS. They should be easily ada
 3. run the following commands in a terminal window:
 
 
-    python -m venv v_venv 
+    python -m venv v_env 
     source ./v_venv/bin/activate
     python -m pip install -r requirements.txt
 
@@ -27,4 +27,25 @@ These instructions are based on installation in MacOS. They should be easily ada
 
 
     python -m main
+
+## Find an mTLS Public Certificate
+
+
+    python -m get_cert
+
+To get help:
+
+    python -m get_cert --help
+
+usage: get_cert.py [-h] [--payer_name PAYER_NAME] [--cert_file_target CERT_FILE_TARGET] [--search_parameters SEARCH_PARAMETERS]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --payer_name PAYER_NAME
+                        Payer Name to search for
+  --cert_file_target CERT_FILE_TARGET
+                        Public Cert File name to write to.
+  --search_parameters SEARCH_PARAMETERS
+                        Additional Search parameters instead of, or in addition to Payer Name.
+
 
