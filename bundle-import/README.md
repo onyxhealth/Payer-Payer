@@ -14,7 +14,7 @@ These instructions are based on installation in MacOS. They should be easily ada
 
 
     python -m venv v_env 
-    source ./v_venv/bin/activate
+    source ./v_env/bin/activate
     python -m pip install -r requirements.txt
 
 4. review the settings in settings.py
