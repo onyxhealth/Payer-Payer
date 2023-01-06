@@ -12,6 +12,9 @@ from icecream import ic
 from settings import DEFAULT_CERT_FILE, DEFAULT_CERT_INFO, FHIR_BASE_URI, TOKEN_REQUIRED
 from fhir_calls import call_fhir
 from bundle_handler import get_field
+from pyasn1_modules import pem, rfc2459
+from pyasn1.codec.der import decoder
+
 
 BEGIN_CERT = "-----BEGIN CERTIFICATE-----"
 END_CERT = "-----END CERTIFICATE-----"
@@ -52,6 +55,14 @@ CLI.add_argument(
     default=['False'],
     help="Provide Verbose output."
 )
+
+
+def decode_x509(cert_file, verbose=False):
+    substrate = pem.readPemFromFile(open(cert_file))
+    cert = decoder.decode(substrate, asn1Spec=rfc2459.Certificate())[0]
+    if verbose:
+        ic(cert.prettyPrint())
+    return cert.prettyPrint()
 
 
 def find_payer(payername="", searchparams=""):
@@ -225,9 +236,11 @@ if __name__ == "__main__":
                     cert_text = write_cert(cert_info['publicCertificate'], certfile, verbose=verbose)
                     if verbose:
                         ic(cert_text)
+                    decoded_cert = decode_x509(certfile, verbose=verbose)
                     with open(certinfo, "w") as ci:
                         del cert_info['publicCertificate']
                         cert_info['certificateFile'] = certfile
+                        cert_info['decodedCertificate'] = decoded_cert
                         ci.write(json.dumps(cert_info, indent=INDENT))
                         print(f"Certificate information written to {certinfo}")
                     if cert_text:
