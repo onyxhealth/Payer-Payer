@@ -245,6 +245,7 @@ if __name__ == "__main__":
                         print(f"Certificate information written to {certinfo}")
                     if cert_text:
                         print(f"certificate file: {certfile}")
-            ic(cert_info)
+            if verbose:
+                ic(cert_info)
     else:
         print("Done.")
