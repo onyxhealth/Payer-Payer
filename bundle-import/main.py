@@ -35,6 +35,15 @@ CLI.add_argument(
     type=str,  # any type/callable can be used here
     help="folder location to git clone into"
 )
+CLI.add_argument(
+    "--clone",
+    nargs=1,
+    required=False,
+    type=str,  # any type/callable can be used here
+    default=["True"],
+    help="Clone = True | False. If False provide --git_temp_target"
+)
+
 
 
 def id_generator(size=8, chars=string.ascii_uppercase + string.digits):
@@ -55,7 +64,11 @@ def clean_string(input):
 if __name__ == "__main__":
     args = CLI.parse_args()
     git_repo = clean_string(args.git_repo_uri[0])
-
+    clone_it = clean_string(args.clone[0])
+    if clone_it.lower() == "false":
+        clone = False
+    else:
+        clone = True
     target_dir = ""
     try:
         target_dir = clean_string(args.git_temp_target[0])
@@ -66,18 +79,19 @@ if __name__ == "__main__":
     if target_dir == "":
         target_dir = "./tmp/" + id_generator()
     ic(git_repo, target_dir)
-    cmd = subprocess.call(["mkdir", target_dir])
-    git_command = "git clone " + git_repo + " " + target_dir
-    ic(git_command)
-    cmd = subprocess.call(["git", "clone", git_repo, target_dir])
+    if clone:
+        cmd = subprocess.call(["mkdir", target_dir])
+        git_command = "git clone " + git_repo + " " + target_dir
+        ic(git_command)
+        cmd = subprocess.call(["git", "clone", git_repo, target_dir])
 
-    ic(cmd)
+        ic(cmd)
 
     bundles = os.listdir(target_dir + BUNDLE_FOLDER)
     ic(bundles)
     processed_bundle = bundle_seq_load(bundles, path=target_dir + BUNDLE_FOLDER)
     print(f"Processed Records:{processed_bundle}")
-    result = remove_dead_records(processed_bundle)
+    # result = remove_dead_records(processed_bundle)
 
-    print(f"Removed Records:{result}")
+    # print(f"Removed Records:{result}")
     print("Done.")

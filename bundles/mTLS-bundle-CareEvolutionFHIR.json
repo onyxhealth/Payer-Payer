@@ -1,0 +1,174 @@
+{
+  "resourceType": "Bundle",
+  "id": "careevolution-fhir-mtls-endpoint-bundle",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/mtls-bundle"
+    ]
+  },
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "Organization/careevolution",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "careevolution",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/davinci-pdex/StructureDefinition/mtls-managing-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "value": "careevolution"
+          }
+        ],
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/OrgTypeCS",
+                "code": "payer",
+                "display": "Payer"
+              }
+            ]
+          }
+        ],
+        "name": "CareEvolution",
+        "endpoint": [
+          {
+            "reference": "Endpoint/careevolution"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "Endpoint/careevolution",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "careevolution",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ndh/StructureDefinition/ndh-Endpoint"
+          ]
+        },
+        "extension": [
+          {
+            "extension": [
+              {
+                "url": "endpointUsecasetype",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+                      "code": "HOPERAT",
+                      "display": "healthcare operations"
+                    }
+                  ]
+                }
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-usecase"
+          },
+          {
+            "extension": [
+              {
+                "url": "igsSupportedType",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/ndh/CodeSystem/IgTypeCS",
+                      "code": "FHIR",
+                      "display": "FHIR"
+                    }
+                  ]
+                }
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-igsSupported"
+          },
+          {
+            "extension": [
+              {
+                "url": "trustFrameworkType",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/ndh/CodeSystem/TrustFrameworkTypeCS",
+                      "code": "PayerToPayer",
+                      "display": "Payer to Payer Trust Network"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "qualifier",
+                "valueString": "Yes"
+              },
+              {
+                "url": "signedArtifact",
+                "valueBase64Binary": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlFNFRDQ0E4bWdBd0lCQWdJSkFNY1pLOVJVQ0VDZU1BMEdDU3FHU0liM0RRRUJDd1VBTUlHUk1SNHdIQVlEDQpWUVFERXhWRFlYSmxSWFp2YkhWMGFXOXVSa2hKVWxKdmIzUXhHekFaQmdOVkJBb1RFa05oY21WRmRtOXNkWFJwDQpiMjRnU1c1akxqRWVNQndHQTFVRUN4TVZTR1ZoYkhSb1kyRnlaU0JVWldOb2JtOXNiMmQ1TVJJd0VBWURWUVFIDQpFd2xCYm00Z1FYSmliM0l4RVRBUEJnTlZCQWdUQ0UxcFkyaHBaMkZ1TVFzd0NRWURWUVFHRXdKVlV6QWVGdzB5DQpNekF4TVRReE56TTBNREZhRncwek16QXhNVEV4TnpNME1ERmFNSUdSTVI0d0hBWURWUVFERXhWRFlYSmxSWFp2DQpiSFYwYVc5dVJraEpVbEp2YjNReEd6QVpCZ05WQkFvVEVrTmhjbVZGZG05c2RYUnBiMjRnU1c1akxqRWVNQndHDQpBMVVFQ3hNVlNHVmhiSFJvWTJGeVpTQlVaV05vYm05c2IyZDVNUkl3RUFZRFZRUUhFd2xCYm00Z1FYSmliM0l4DQpFVEFQQmdOVkJBZ1RDRTFwWTJocFoyRnVNUXN3Q1FZRFZRUUdFd0pWVXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCDQpCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLV1gzaDdCWStiZ3NFV0ZHWXd1YkJDYWpqMlNkSTJDdlpVa1FYOWpyTnpWDQpGYUlFSnJKVi95U3JKY25BNVM2Vnk3VDRpdmhvM2lMNTM5YkY0ZnVZRzhiNlBQUkF5WDltSFVGZFUvaHltcWZ2DQoyVDRmNDZvcTBCbE5kK2gwNWtPbWNQVkpiUnhOWWtVNjAxNDhIQVFVYUt3OHFPdzRoUFpRK0ZGOGtkK3RsNTg4DQpjbTcxdHFvUjR2V1BYeGE0YXZNcDFIWTBSeVU1WUs2Uk1TMVBOM3g3TXZUeFFiUHZPMVBhKzRtTzNXR0VTQWI4DQpJZ29aazdzZWQ2RjdrVXlPanhIeU9vRTRXdmdaMi81S2txWmZCMExBcE9XLy9LQU10RGtzVHhPUllQS2l6bWJXDQo2MUF6RFdPd1BBK2FFRWljMm03STBqeXJiMnV6bGpQLzVsWDFLN25IZkRzQ0F3RUFBYU9DQVRnd2dnRTBNQklHDQpBMVVkRXdFQi93UUlNQVlCQWY4Q0FRQXdIUVlEVlIwT0JCWUVGRE00SVB2a0twdkdEWEpQUm1BbTJ2T0cvOTVGDQpNSUhHQmdOVkhTTUVnYjR3Z2J1QUZETTRJUHZrS3B2R0RYSlBSbUFtMnZPRy85NUZvWUdYcElHVU1JR1JNUjR3DQpIQVlEVlFRREV4VkRZWEpsUlhadmJIVjBhVzl1UmtoSlVsSnZiM1F4R3pBWkJnTlZCQW9URWtOaGNtVkZkbTlzDQpkWFJwYjI0Z1NXNWpMakVlTUJ3R0ExVUVDeE1WU0dWaGJIUm9ZMkZ5WlNCVVpXTm9ibTlzYjJkNU1SSXdFQVlEDQpWUVFIRXdsQmJtNGdRWEppYjNJeEVUQVBCZ05WQkFnVENFMXBZMmhwWjJGdU1Rc3dDUVlEVlFRR0V3SlZVNElKDQpBTWNaSzlSVUNFQ2VNQTRHQTFVZER3RUIvd1FFQXdJQkJqQW1CZ05WSFNBRUh6QWRNQTBHQ3lzR0FRUUJnc0ZiDQpBQUVDTUF3R0Npc0dBUVFCZ3NGYkFRTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQ3JDcTV4cjA1MkZmd1pHDQpDYzBsNU0yc3lLR2k3WnRCbVViU3c2TENGbm03Y3dzazNsbGpycGorQmoyTmFJUmxVUDZOMnZHcWtVUHlYR0piDQpNWlpQelk2eHppallYcXZwSU42Y3FYL2VqTlhVRk1mT2s5dXlyUmVqTkN1ZzZpd0lIZHc0eER6Sk84WXVKajV6DQpSTnBmTEkrUWhUeE9NSjFhS3R0RkVFdDBSMTBDc1JmUDUyZ3NtcDhYbWNrRFcyUUxqZThNWjdLbnNRbndqRlBrDQp2SWVHWVRZUy80NldhZHl3a0dzYS9vdVB0TmxBa3NTcHVCSTFVbXM3OWNndG5INkpyUVl1Nkd3eWtrT1ZnNVF5DQpJSTFDYkJLWWQ5OVdBVkFXdGIwSGh3S3pJWlFUN2VWRzl6QkZOeUd4aDNUTjJ0alg3dnowK2FscTJFc1Q4THBzDQp2NDJ6ak1rPQ0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQ=="
+              },
+              {
+                "url": "publicCertificate",
+                "valueBase64Binary": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlFNFRDQ0E4bWdBd0lCQWdJSkFNY1pLOVJVQ0VDZU1BMEdDU3FHU0liM0RRRUJDd1VBTUlHUk1SNHdIQVlEDQpWUVFERXhWRFlYSmxSWFp2YkhWMGFXOXVSa2hKVWxKdmIzUXhHekFaQmdOVkJBb1RFa05oY21WRmRtOXNkWFJwDQpiMjRnU1c1akxqRWVNQndHQTFVRUN4TVZTR1ZoYkhSb1kyRnlaU0JVWldOb2JtOXNiMmQ1TVJJd0VBWURWUVFIDQpFd2xCYm00Z1FYSmliM0l4RVRBUEJnTlZCQWdUQ0UxcFkyaHBaMkZ1TVFzd0NRWURWUVFHRXdKVlV6QWVGdzB5DQpNekF4TVRReE56TTBNREZhRncwek16QXhNVEV4TnpNME1ERmFNSUdSTVI0d0hBWURWUVFERXhWRFlYSmxSWFp2DQpiSFYwYVc5dVJraEpVbEp2YjNReEd6QVpCZ05WQkFvVEVrTmhjbVZGZG05c2RYUnBiMjRnU1c1akxqRWVNQndHDQpBMVVFQ3hNVlNHVmhiSFJvWTJGeVpTQlVaV05vYm05c2IyZDVNUkl3RUFZRFZRUUhFd2xCYm00Z1FYSmliM0l4DQpFVEFQQmdOVkJBZ1RDRTFwWTJocFoyRnVNUXN3Q1FZRFZRUUdFd0pWVXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCDQpCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLV1gzaDdCWStiZ3NFV0ZHWXd1YkJDYWpqMlNkSTJDdlpVa1FYOWpyTnpWDQpGYUlFSnJKVi95U3JKY25BNVM2Vnk3VDRpdmhvM2lMNTM5YkY0ZnVZRzhiNlBQUkF5WDltSFVGZFUvaHltcWZ2DQoyVDRmNDZvcTBCbE5kK2gwNWtPbWNQVkpiUnhOWWtVNjAxNDhIQVFVYUt3OHFPdzRoUFpRK0ZGOGtkK3RsNTg4DQpjbTcxdHFvUjR2V1BYeGE0YXZNcDFIWTBSeVU1WUs2Uk1TMVBOM3g3TXZUeFFiUHZPMVBhKzRtTzNXR0VTQWI4DQpJZ29aazdzZWQ2RjdrVXlPanhIeU9vRTRXdmdaMi81S2txWmZCMExBcE9XLy9LQU10RGtzVHhPUllQS2l6bWJXDQo2MUF6RFdPd1BBK2FFRWljMm03STBqeXJiMnV6bGpQLzVsWDFLN25IZkRzQ0F3RUFBYU9DQVRnd2dnRTBNQklHDQpBMVVkRXdFQi93UUlNQVlCQWY4Q0FRQXdIUVlEVlIwT0JCWUVGRE00SVB2a0twdkdEWEpQUm1BbTJ2T0cvOTVGDQpNSUhHQmdOVkhTTUVnYjR3Z2J1QUZETTRJUHZrS3B2R0RYSlBSbUFtMnZPRy85NUZvWUdYcElHVU1JR1JNUjR3DQpIQVlEVlFRREV4VkRZWEpsUlhadmJIVjBhVzl1UmtoSlVsSnZiM1F4R3pBWkJnTlZCQW9URWtOaGNtVkZkbTlzDQpkWFJwYjI0Z1NXNWpMakVlTUJ3R0ExVUVDeE1WU0dWaGJIUm9ZMkZ5WlNCVVpXTm9ibTlzYjJkNU1SSXdFQVlEDQpWUVFIRXdsQmJtNGdRWEppYjNJeEVUQVBCZ05WQkFnVENFMXBZMmhwWjJGdU1Rc3dDUVlEVlFRR0V3SlZVNElKDQpBTWNaSzlSVUNFQ2VNQTRHQTFVZER3RUIvd1FFQXdJQkJqQW1CZ05WSFNBRUh6QWRNQTBHQ3lzR0FRUUJnc0ZiDQpBQUVDTUF3R0Npc0dBUVFCZ3NGYkFRTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQ3JDcTV4cjA1MkZmd1pHDQpDYzBsNU0yc3lLR2k3WnRCbVViU3c2TENGbm03Y3dzazNsbGpycGorQmoyTmFJUmxVUDZOMnZHcWtVUHlYR0piDQpNWlpQelk2eHppallYcXZwSU42Y3FYL2VqTlhVRk1mT2s5dXlyUmVqTkN1ZzZpd0lIZHc0eER6Sk84WXVKajV6DQpSTnBmTEkrUWhUeE9NSjFhS3R0RkVFdDBSMTBDc1JmUDUyZ3NtcDhYbWNrRFcyUUxqZThNWjdLbnNRbndqRlBrDQp2SWVHWVRZUy80NldhZHl3a0dzYS9vdVB0TmxBa3NTcHVCSTFVbXM3OWNndG5INkpyUVl1Nkd3eWtrT1ZnNVF5DQpJSTFDYkJLWWQ5OVdBVkFXdGIwSGh3S3pJWlFUN2VWRzl6QkZOeUd4aDNUTjJ0alg3dnowK2FscTJFc1Q4THBzDQp2NDJ6ak1rPQ0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQ=="
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-trustFramework"
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-secureEndpoint",
+            "valueBoolean": true
+          },
+          {
+            "extension": [
+              {
+                "url": "secureExchangeArtifactsType",
+                "valueString": "mtls Public Certificate"
+              },
+              {
+                "url": "certificate",
+                "valueBase64Binary": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlGMkRDQ0JNQ2dBd0lCQWdJUUJKWGcycUNxU1plUkhWMTJBWGM4R2pBTkJna3Foa2lHOXcwQkFRc0ZBREE4DQpNUXN3Q1FZRFZRUUdFd0pWVXpFUE1BMEdBMVVFQ2hNR1FXMWhlbTl1TVJ3d0dnWURWUVFERXhOQmJXRjZiMjRnDQpVbE5CSURJd05EZ2dUVEF4TUI0WERUSXlNVEl4TWpBd01EQXdNRm9YRFRJME1ERXhNREl6TlRrMU9Wb3dJVEVmDQpNQjBHQTFVRUF4TVdabWhwY2k1allYSmxaWFp2YkhWMGFXOXVMbU52YlRDQ0FTSXdEUVlKS29aSWh2Y05BUUVCDQpCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNbzhnRWlkMmpkaXdqSkUvNlVZOVFQSEttb0lMWnl5NXI5L2FzZ1g4UkplDQpJblVDRnE1SVJuOTJuVVBXcFgxcFhsbUVIWUdmbVk4MFlpcTJtTUdwZ2VMRTJ5SDlEQzNoOTJpWGZGRG1PVFY4DQpJbnk1T1lzQUtvdXJiTXlwS3ZJanZHOHFXa3hKUFhmdE5IWHJVclNSWXhKYzhMU0NKWmtwcWhXSlkwYXlMazdQDQoxQ0p1OHVhSHZQNEFIc1FjRHl4VlBGY2pEcnlkM2c3dUZneGVuZmZ6Sm1sbUxtWU16YWRsUGxVdFNYdFFIWkVlDQpDc1BqVGE1YzN3eGR5SnBQL1NFQ1puLzNCRlRQN2g4K0Q1a0dsZDhFdDJoT1M1U3V2YVlXRmsxR1BxTWtRVVZxDQp5SGlyZDlLTlFHdkZQeFppMkZmd1BRS0JVcGZOOXJETTJocXAzckhhOEpjQ0F3RUFBYU9DQXU4d2dnTHJNQjhHDQpBMVVkSXdRWU1CYUFGSUc0RG1PS2lSSVk1Zm83TzFDVm4rYmxrQk9GTUIwR0ExVWREZ1FXQkJSRjZsSll0NnkxDQo0QXJZN05URG4xSkhhNFpOQmpBaEJnTlZIUkVFR2pBWWdoWm1hR2x5TG1OaGNtVmxkbTlzZFhScGIyNHVZMjl0DQpNQTRHQTFVZER3RUIvd1FFQXdJRm9EQWRCZ05WSFNVRUZqQVVCZ2dyQmdFRkJRY0RBUVlJS3dZQkJRVUhBd0l3DQpPd1lEVlIwZkJEUXdNakF3b0M2Z0xJWXFhSFIwY0RvdkwyTnliQzV5TW0wd01TNWhiV0Y2YjI1MGNuVnpkQzVqDQpiMjB2Y2pKdE1ERXVZM0pzTUJNR0ExVWRJQVFNTUFvd0NBWUdaNEVNQVFJQk1IVUdDQ3NHQVFVRkJ3RUJCR2t3DQpaekF0QmdnckJnRUZCUWN3QVlZaGFIUjBjRG92TDI5amMzQXVjakp0TURFdVlXMWhlbTl1ZEhKMWMzUXVZMjl0DQpNRFlHQ0NzR0FRVUZCekFDaGlwb2RIUndPaTh2WTNKMExuSXliVEF4TG1GdFlYcHZiblJ5ZFhOMExtTnZiUzl5DQpNbTB3TVM1alpYSXdEQVlEVlIwVEFRSC9CQUl3QURDQ0FYNEdDaXNHQVFRQjFua0NCQUlFZ2dGdUJJSUJhZ0ZvDQpBSFlBN3MzUVpOWGJHczdGWExlZHRNMFRvaktIUm55ODdON0RVVWhaUm5FZnRac0FBQUdGQnQxazZRQUFCQU1BDQpSekJGQWlBY3hnTkZlVXZwQWkxb0o4TzVOTXhyZGQ5Wlc3NUVlMEN6RTE4eVJ5RkF0UUloQU9tWFNySmthRVJqDQpMSU9Uem53UFJGTEV2NXE2bE9RUUFLVlRac3Z1SXk3WUFIY0FjOW1laVJ0TWxuaWdJSDFIbmVheXhoelFVVjV4DQpHU3FNYTRBUWVzRjNjclVBQUFHRkJ0MWxJQUFBQkFNQVNEQkdBaUVBMFByZWo1ZS9GQnBYQUMvYjR5NTNHQjBDDQpiY2RvaDh6TEU3MnNDYUxIdG5rQ0lRQ1QrV2kwZ1VvZXlmckZpd3Y3VXU5aDFFallVTzVHR0EyTFBtaHRHdks0DQpMd0IxQUVpdzQydmFwa2MwRCtWcUF2cWRNT3NjVWdITFZ0MHNnZG03djZzNTJJUnpBQUFCaFFiZFpPZ0FBQVFEDQpBRVl3UkFJZ1hSQW9aV25kZ0ZHazFDN1lSVmdRSldqVEU4Qkdsd3RMVFptQ280SzZsLzRDSUZWTFloUzdkQTd2DQoxanV4QkhRMjVjVVFsR3c2UjUyZjVNaDFCZkk2bTVBUk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQjNCbEdzDQpMVytmbVBZUnBBWUZqL2Y5WDVWajdib1NEaG5BYzZyM3E1T0M4Y0M5c3dhTHA1MTl0cVJpU1FITWR6YlB4enlGDQpWd2hTVU81RlVobzZLdW5oUjAwR3czOCtnTGZ4aTlvNlY1Nmo4ZnlpU2UzTG1raGduN0VjUHR1TzdtYThrWHV6DQoxKzQ1THQ1aUZKaFZtM3owNG9GcysyVFBDOVpuRmU0RHJwc3pacHpYQzNMT3NSRU5XdElCVVRyaUVFR2M5R2JiDQp4UWxWcSt2TlBHaDl6Zk13TjIyYXBmcmVJMXZ0NEg0WUc4YWpJamphK3NTdDVKL1AzelBuTUkvNGRjcU80SlY3DQpYVnk2QmlISGJoa2o4V2t3Rk5lMUJNOGpVRHVjb3IxaHpRQlJOM0VmMjlLYUg5UXZ4Q3FnM2dKR3VnMXkwSGJIDQoyclUwR3RUK1VSazE2NmZxDQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tDQo="
+              },
+              {
+                "url": "expirationDate",
+                "valueDateTime": "2024-01-10T18:59:59.000Z"
+              }
+            ],
+            "url": "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-secureExchangeArtifacts"
+          }
+        ],
+        "identifier": [
+          {
+            "value": "careevolution-endpoint"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Payer-Payer Exchange",
+        "managingOrganization": {
+          "identifier": {
+            "value": "Organization/careevolution"
+          }
+        },
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/us/ndh/CodeSystem/EndpointPayloadTypeCS",
+                "code": "NA",
+                "display": "Not Applicable"
+              }
+            ]
+          }
+        ],
+        "address": "https://fhir.careevolution.com/Master.Adapter1.WebClient/api/mtlsregistration"
+      }
+    }
+  ]
+}
