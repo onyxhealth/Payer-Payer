@@ -54,3 +54,35 @@ An information file about the public certificate will be written to a file that 
 e.g.  ./tmp/public_cert.pem will have an information file of
 ./tmp/public_cert.pem.txt
 
+
+## Get mTLS Endpoint Address 
+
+Returns mTLS Endpoint from FHIR Server
+
+
+    python -m get_endpoint --payer_name Diamond
+
+Get help:
+
+    
+    python -m get_endpoint --help
+
+
+### Help information
+
+```markdown
+
+usage: get_endpoint.py [-h] [--payer_name PAYER_NAME] [--search_parameters SEARCH_PARAMETERS] [--info_file_target INFO_FILE_TARGET] [--verbose VERBOSE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --payer_name PAYER_NAME
+                        Payer Name to search for
+  --search_parameters SEARCH_PARAMETERS
+                        Additional Search parameters instead of, or in addition to Payer Name.
+  --info_file_target INFO_FILE_TARGET
+                        Info File name to write to for endpoint info.
+  --verbose VERBOSE     Provide Verbose output.
+
+
+```
