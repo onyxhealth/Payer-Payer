@@ -16,3 +16,4 @@ BUNDLE_FOLDER = "/bundles"
 
 DEFAULT_CERT_FILE = "./tmp/public_cert.pem"
 DEFAULT_CERT_INFO = DEFAULT_CERT_FILE + ".txt"
+DEFAULT_INFO_FILE = "./tmp/payer_endpoint.txt"

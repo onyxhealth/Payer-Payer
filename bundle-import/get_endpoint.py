@@ -1,15 +1,15 @@
 #! /usr/bin/env python3
-# get_cert.py
+# get_endpoint.py
 # 2022-12-30
 # @ekivemark
 #
-# Search for Payer Public mTLS Cert in HAPI
-# Return Cert as a .pem file
+# Search for Payer endpoint in FHIR Seever
+# Endpoint
 import json
 import argparse
 from icecream import ic
 
-from settings import DEFAULT_CERT_FILE, DEFAULT_CERT_INFO, FHIR_BASE_URI, TOKEN_REQUIRED
+from settings import DEFAULT_INFO_FILE, FHIR_BASE_URI, TOKEN_REQUIRED
 from fhir_calls import call_fhir
 from bundle_handler import get_field
 from pyasn1_modules import pem, rfc2459
@@ -33,14 +33,6 @@ CLI.add_argument(
     help="Payer Name to search for"
 )
 CLI.add_argument(
-    "--cert_file_target",
-    nargs=1,
-    required=False,
-    type=str,  # any type/callable can be used here
-    default=[DEFAULT_CERT_FILE,],
-    help="Public Cert File name to write to. "
-)
-CLI.add_argument(
     "--search_parameters",
     nargs=1,
     required=False,
@@ -49,12 +41,12 @@ CLI.add_argument(
     help="Additional Search parameters instead of, or in addition to Payer Name."
 )
 CLI.add_argument(
-    "--cert_type",
+    "--info_file_target",
     nargs=1,
     required=False,
     type=str,  # any type/callable can be used here
-    default=['mtls'],
-    help="cert_type = mtls "  # | trust."
+    default=[DEFAULT_INFO_FILE,],
+    help="Info File name to write to for endpoint info."
 )
 CLI.add_argument(
     "--verbose",
@@ -220,29 +212,26 @@ if __name__ == "__main__":
         payername = clean_string(args.payer_name[0])
     else:
         payername = ""
-    if args.cert_file_target:
-        certfile = clean_string(args.cert_file_target[0])
-    else:
-        certfile = DEFAULT_CERT_FILE
-    certinfo = certfile + ".txt"
     if args.search_parameters:
         searchparam = clean_string(args.search_parameters[0], remove=[">", "<"])
     else:
         searchparam = ""
-    # if args.cert_type[0].lower() == "trust":
-    #     cert_type = 'trust'
-    # else:
-    #     cert_type = "mtls"
+    if args.info_file_target:
+        infofile = clean_string(args.info_file_target[0])
+    else:
+        infofile = DEFAULT_INFO_FILE
+
     cert_type = "mtls"
-    # ic(payername, certfile, certinfo, searchparam)
+    # ic(payername, searchparam)
     endpoint_resp = {}
     if len(payername + searchparam) > 0:
         endpoint_resp = find_payer(payername, searchparam)
 
     if endpoint_resp:
         if endpoint_resp['uniqueMatch']:
-            print("Unique Match found")
-            cert_info = {}
+            if verbose:
+                print("Unique Match found")
+            info_file = {}
             if "entry" in endpoint_resp['response']:
                 if verbose:
                     ic(endpoint_resp['response']['entry'][0]['resource'])
@@ -250,29 +239,26 @@ if __name__ == "__main__":
                     organization = get_org_info(endpoint_resp['response']['entry'][0]['resource']['managingOrganization']['reference'])
                     if verbose:
                         ic(organization)
-                cert_info = get_certificate(endpoint_resp['response']['entry'][0]['resource'],
+                info_file = get_certificate(endpoint_resp['response']['entry'][0]['resource'],
                                             organization,
                                             cert_type=cert_type,
                                             verbose=verbose)
                 if verbose:
-                    ic(f"Do we have a publicCertificate: {cert_info}")
-                if 'publicCertificate' in cert_info.keys():
+                    ic(f"Do we have a publicCertificate: {info_file}")
+                if 'publicCertificate' in info_file.keys():
                     # Convert the cert data
                     # Write it to the target file
                     # write the info file
-                    cert_text = write_cert(cert_info['publicCertificate'], certfile, verbose=verbose)
-                    if verbose:
-                        ic(cert_text)
-                    decoded_cert = decode_x509(certfile, verbose=verbose)
-                    with open(certinfo, "w") as ci:
-                        del cert_info['publicCertificate']
-                        cert_info['certificateFile'] = certfile
-                        cert_info['decodedCertificate'] = decoded_cert
-                        ci.write(json.dumps(cert_info, indent=INDENT))
-                        print(f"Certificate information written to {certinfo}")
-                    if cert_text:
-                        print(f"certificate file: {certfile}")
+                    with open(infofile, "w") as ci:
+                        del info_file['publicCertificate']
+                        ci.write(json.dumps(info_file, indent=INDENT))
+                        if verbose:
+                            print(f"Endpoint information written to {infofile}")
             if verbose:
-                ic(cert_info)
+                ic(infofile)
+            if verbose:
+                print(f"Address: {info_file['address']}")
+            else:
+                print(info_file['address'])
     else:
         print("Done.")
