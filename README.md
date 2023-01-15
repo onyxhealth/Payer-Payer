@@ -31,3 +31,6 @@ A dockerized HAPI instance can be run by following the instructions in the /hapi
 A set of Python scripts to load the bundles to the dockerized hapi server can be found in the /bundle-import directory. 
 
 
+# How to implement mTLS connectivity:
+
+see the /mtls-setup/README.md file
