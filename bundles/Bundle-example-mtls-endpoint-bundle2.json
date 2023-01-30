@@ -43,6 +43,12 @@
           }
         ],
         "name": "RubiconOnyxHealth",
+        "telecom" : [
+          {
+              "system" : "url",
+              "value" : "https://rubicon.onyxhealth.io"
+          }
+        ],
         "endpoint": [
           {
             "reference": "Endpoint/rubicon-mtls-endpoint3"

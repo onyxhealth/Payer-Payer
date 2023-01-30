@@ -35,7 +35,7 @@
           {
             "coding": [
               {
-                "system": "http://hl7.org/fhir/us/davinci-pdex/CodeSystem/OrgTypeCS",
+                "system": "http://hl7.org/fhir/us/ndh/ValueSet/OrgTypeCS",
                 "code": "payer",
                 "display": "Payer"
               }
@@ -43,6 +43,12 @@
           }
         ],
         "name": "DiamondOnyxHealth",
+        "telecom" : [
+          {
+              "system" : "url",
+              "value" : "https://diamond.2.onyxhealth.io"
+          }
+        ],
         "endpoint": [
           {
             "reference": "Endpoint/diamond-mtls-endpoint2"
