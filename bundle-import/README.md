@@ -18,7 +18,10 @@ These instructions are based on installation in MacOS. They should be easily ada
     python -m pip install -r requirements.txt
 
 4. review the settings in settings.py
-5. run the import process with --help to understand the command line parameters
+
+Make sure you are pointing at the correct Server with the appropriate client credentials.
+
+6. run the import process with --help to understand the command line parameters
 
 
     python -m main --help 

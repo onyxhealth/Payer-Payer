@@ -1,7 +1,7 @@
 # Dockerized HAPI:
-# FHIR_BASE_URI = "http://localhost:8080/fhir"
+FHIR_BASE_URI = "http://localhost:8080/fhir"
 # National Directory RI
-FHIR_BASE_URI = "https://national-directory.fast.hl7.org/fhir"
+# FHIR_BASE_URI = "https://national-directory.fast.hl7.org/fhir"
 CLIENT_ID = "ADD_CLIENT_ID"
 CLIENT_SECRET = "ADD_CLIENT_SECRET"
 TENANT = "ADD_TENANT_ID"
